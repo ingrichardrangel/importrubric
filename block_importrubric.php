@@ -1,17 +1,54 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+
+defined('MOODLE_INTERNAL') || die();
+
+/**
+ * Main block class for block_importrubric.
+ *
+ * @package   block_importrubric
+ * @copyright 2025 Richard Rangel
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 
 class block_importrubric extends block_base {
 
+    /**
+     * Initialize block title.
+     */
     public function init() {
         $this->title = get_string('pluginname', 'block_importrubric');
     }
 
+    /**
+     * Define where the block can be added.
+     *
+     * @return array
+     */
     public function applicable_formats() {
         return [
-            'mod' => true, // Only available in activity modules
+            'mod' => true, // Only available in activity modules.
         ];
     }
 
+    /**
+     * Generate block content.
+     *
+     * @return stdClass
+     */
     public function get_content() {
         global $PAGE, $DB;
 
@@ -22,44 +59,49 @@ class block_importrubric extends block_base {
         $this->content = new stdClass();
         $this->content->text = '';
 
-        // Get cmid from the URL
+        // Get course module ID from the URL.
         $cmid = optional_param('id', 0, PARAM_INT);
 
         if (!$cmid) {
-            $this->content->text = html_writer::div('<em>Unable to retrieve activity ID.</em>', 'debug');
+            $this->content->text = html_writer::div('<em>' . get_string('errornoid', 'block_importrubric') . '</em>', 'debug');
             return $this->content;
         }
 
-        // Retrieve module name (e.g. 'assign')
-        $modulename = $DB->get_field_sql("
+        // Retrieve the module name (e.g., 'assign').
+        $sql = "
             SELECT m.name
-            FROM {course_modules} cm
-            JOIN {modules} m ON cm.module = m.id
-            WHERE cm.id = :cmid
-            LIMIT 1
-        ", ['cmid' => $cmid]);
+              FROM {course_modules} cm
+              JOIN {modules} m ON cm.module = m.id
+             WHERE cm.id = :cmid
+             LIMIT 1
+        ";
+        $modulename = $DB->get_field_sql($sql, ['cmid' => $cmid]);
 
-        // Show button only if activity is an assignment
+        // Only show the button if the module is an assignment.
         if ($modulename !== 'assign') {
             return $this->content;
         }
 
-        // Check user capability
+        // Check user capability.
         $context = context_module::instance($cmid);
         if (!has_capability('block/importrubric:addinstance', $context)) {
-            return $this->content; // Do not show anything if user lacks permission
+            return $this->content;
         }
 
-        // Build import URL
+        // Generate the import URL.
         $url = new moodle_url('/local/customgradingform_renderer/initimport.php', [
             'cmid' => $cmid
         ]);
 
-        // Render button
-        $this->content->text .= html_writer::link($url, get_string('importfromcsv', 'block_importrubric'), [
-            'class' => 'btn btn-primary',
-            'style' => 'display:block;text-align:center;padding:10px;margin-top:10px;background-color:#000;color:#fff;'
-        ]);
+        // Render the import button.
+        $this->content->text .= html_writer::link(
+            $url,
+            get_string('importfromcsv', 'block_importrubric'),
+            [
+                'class' => 'btn btn-primary',
+                'style' => 'display:block;text-align:center;padding:10px;margin-top:10px;background-color:#000;color:#fff;'
+            ]
+        );
 
         return $this->content;
     }
