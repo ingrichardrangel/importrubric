@@ -5,7 +5,7 @@
 
 <h3>📌 Features</h3>
 <ul>
-  <li>Block available only within <strong>Assignment activities</strong>.</li>
+  <li>Block available for manual addition only within <strong>Assignment activities</strong>.</li>
   <li>Displays a button to launch a custom rubric importer interface.</li>
   <li>Allows importing of grading rubrics via <code>.csv</code> files.</li>
   <li>Integrates with the plugin <code>local_customgradingform_renderer</code> for backend processing.</li>
@@ -23,7 +23,8 @@
 </ul>
 <p><strong>Workflow Example:</strong></p>
 <ol>
-  <li>The teacher opens an Assignment activity.</li>
+  <li>The teacher enters an <strong>Assignment activity</strong>.</li>
+  <li>From the block drawer, the teacher <strong>adds the "Import Rubric from CSV" block manually</strong>.</li>
   <li>The block displays a button labeled <em>“Import rubric from CSV”</em>.</li>
   <li>Clicking the button opens a secure upload interface.</li>
   <li>The rubric is imported and configured into the assignment automatically.</li>
@@ -40,16 +41,14 @@
 <h3>⚙️ Requirements</h3>
 <ul>
   <li>Requires <strong>Moodle 4.1</strong> or later.</li>
-  <li>Depends on the plugin: <code>local_customgradingform_renderer</code>.</li>
-  <li>Ensure PHP version is compatible with your Moodle instance.</li>
+  <li>This block <strong>must be added manually by the user</strong> inside the Assignment activity where the rubric should be imported.</li>
+  <li>This block <strong>requires the plugin</strong> <code>local_customgradingform_renderer</code> to work properly.</li>
+  <li>Please download and install the latest version of the required plugin from the following GitHub repository:</li>
 </ul>
+<p>
+  🔗 <a href="https://github.com/ingrichardrangel/moodle-local_customgradingform_renderer" target="_blank">
+  https://github.com/ingrichardrangel/moodle-local_customgradingform_renderer</a>
+</p>
 
 <hr>
 <p><em>Developed by Richard Rangel – 2025</em></p>
-
-
-The plugin depends on:
-
-✅ local_customgradingform_renderer (for the rubric processing logic).
-
-PHP version compatible with your Moodle version.
