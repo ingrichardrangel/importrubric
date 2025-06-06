@@ -17,14 +17,9 @@
 defined('MOODLE_INTERNAL') || die();
 
 // Version file for block_importrubric.
-
-/**
- * Version file for block_importrubric.
- *
- * @package   block_importrubric
- * @copyright 2025 Richard Rangel
- * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
- */
+// @package   block_importrubric
+// @copyright 2025 Richard Rangel
+// @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
 
 $plugin->component = 'block_importrubric';
 $plugin->version   = 2025060100; // Plugin version (YYYYMMDDXX).
