@@ -16,6 +16,8 @@
 
 defined('MOODLE_INTERNAL') || die();
 
+// Version file for block_importrubric.
+
 /**
  * Version file for block_importrubric.
  *
@@ -25,11 +27,11 @@ defined('MOODLE_INTERNAL') || die();
  */
 
 $plugin->component = 'block_importrubric';
-$plugin->version   = 2024051800; // Plugin version (YYYYMMDDXX).
+$plugin->version   = 2025060100; // Plugin version (YYYYMMDDXX).
 $plugin->requires  = 2022041900; // Minimum required Moodle version (Moodle 4.1).
 $plugin->maturity  = MATURITY_STABLE; // Development maturity level.
-$plugin->release   = '1.0.0'; // Human-readable release name.
+$plugin->release   = '1.0.1'; // Human-readable release name.
 
 $plugin->dependencies = [
-    'local_customgradingform_renderer' => 2024051800
+    'local_customgradingform_renderer' => 2024051800,
 ];
