@@ -99,7 +99,7 @@ class block_importrubric extends block_base {
             get_string('importfromcsv', 'block_importrubric'),
             [
                 'class' => 'btn btn-primary',
-                'style' => 'display:block;text-align:center;padding:10px;margin-top:10px;background-color:#000;color:#fff;'
+                'style' => 'display:block;text-align:center;padding:10px;margin-top:10px;'
             ]
         );
 
